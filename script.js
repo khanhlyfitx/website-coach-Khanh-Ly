@@ -114,7 +114,7 @@ if (heroVideo) {
 }
 
 // ==========================================
-// CONTACT FORM - SEND TO ZALO QR
+// CONTACT FORM - SEND VIA GMAIL WEB
 // ==========================================
 function sendToEmail(event) {
     event.preventDefault();
@@ -125,28 +125,26 @@ function sendToEmail(event) {
     const phone = document.getElementById('userPhone').value;
     const message = document.getElementById('userMessage').value;
     
-    // Tạo tin nhắn Zalo
-    const zaloMessage = 
-        'ĐĂNG KÝ TẬP LUYỆN\n\n' +
-        '👤 Họ tên: ' + name + '\n' +
-        '📧 Email: ' + email + '\n' +
-        '📞 SĐT: ' + phone + '\n' +
-        '🎯 Mục tiêu: ' + message;
+    // Tạo nội dung email
+    const subject = encodeURIComponent('Đăng ký tập luyện - ' + name);
+    const body = encodeURIComponent(
+        'Họ và tên: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Số điện thoại: ' + phone + '\n' +
+        'Mục tiêu: ' + message
+    );
     
-    // Encode message
-    const encodedMessage = encodeURIComponent(zaloMessage);
-    
-    // Zalo QR URL với message
-    const zaloUrl = 'http://zaloapp.com/qr/p/179fopxpahncp?text=' + encodedMessage;
+    // Gmail web compose URL
+    const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=minhtanfitx@gmail.com&su=' + subject + '&body=' + body;
     
     // Show success message
     const successMessage = document.getElementById('successMessage');
-    successMessage.textContent = '✅ Đang chuyển đến Zalo...';
+    successMessage.textContent = '✅ Đang chuyển đến Gmail...';
     successMessage.classList.add('show');
     
-    // Mở Zalo
+    // Mở Gmail web
     setTimeout(function() {
-        window.open(zaloUrl, '_blank');
+        window.open(gmailUrl, '_blank');
         successMessage.classList.remove('show');
         // Reset form
         document.getElementById('contactForm').reset();
